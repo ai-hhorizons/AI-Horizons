@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Horizons — Discover next-gen AI tools</title>
+  <!-- SEO meta -->
+  <meta name="description" content="Curated directory of the best AI tools, prompts & resources. ProductHunt style, dark theme, fully responsive.">
+  <meta name="keywords" content="AI tools, prompts, artificial intelligence, directory, machine learning">
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* RESET & VARIABLES – DARK THEME (default) */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #0B0C15 0%, #181C2A 100%);
+      color: #eef2fb;
+      line-height: 1.5;
+      transition: background 0.3s ease, color 0.2s ease;
+      min-height: 100vh;
+    }
+    /* light theme override */
+    body.light-theme {
+      background: linear-gradient(145deg, #f4f7fc 0%, #e9eefa 100%);
+      color: #151e2f;
+    }
+    body.light-theme .glass-card,
+    body.light-theme nav,
+    body.light-theme .footer,
+    body.light-theme .form-card {
+      background: rgba(255,255,255,0.5);
+      border-color: rgba(255,255,255,0.8);
+      backdrop-filter: blur(10px);
+    }
+    body.light-theme .tool-card,
+    body.light-theme .prompt-card,
+    body.light-theme .blog-card {
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+    body.light-theme button.primary,
+    body.light-theme .gradient-btn {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: white;
+    }
+
+    /* utility */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    /* glassmorphism base */
+    .glass-card, nav, .footer, .form-card {
+      background: rgba(18, 22, 36, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(92, 129, 255, 0.2);
+      border-radius: 28px;
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+    }
+    /* gradient buttons */
+    .gradient-btn {
+      background: linear-gradient(135deg, #3b5eff, #b026ff);
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 12px 32px;
+      border-radius: 60px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+    }
+    .gradient-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 25px -5px #a855f7;
+    }
+    .gradient-btn-outline {
+      background: transparent;
+      border: 1.5px solid #5f7cff;
+      color: inherit;
+      border-radius: 40px;
+      padding: 8px 20px;
+      font-weight: 500;
+      transition: 0.2s;
+    }
+    .gradient-btn-outline:hover {
+      background: rgba(95, 124, 255, 0.15);
+      border-color: #b184ff;
+    }
+
+    /* NAVBAR */
+    nav {
+      margin: 24px auto;
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .logo {
+      font-size: 1.7rem;
+      font-weight: 700;
+      background: linear-gradient(130deg, #c1d2ff, #d6b0ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: inherit;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: 0.2s;
+    }
+    .nav-links a:hover {
+      color: #b7c9ff;
+    }
+    .nav-icons {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .nav-icons i {
+      font-size: 1.2rem;
+      cursor: pointer;
+      background: rgba(255,255,255,0.05);
+      padding: 8px;
+      border-radius: 50%;
+      transition: 0.2s;
+    }
+    .nav-icons i:hover {
+      background: rgba(255,255,255,0.15);
+    }
+    /* dark-light toggle */
+    .theme-toggle {
+      background: rgba(255,255,255,0.1);
+      border-radius: 40px;
+      padding: 4px;
+      display: flex;
+      gap: 4px;
+    }
+    .theme-toggle i {
+      padding: 8px 12px;
+      border-radius: 30px;
+    }
+    .theme-toggle .active {
+      background: #3b5eff;
+      color: white;
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 60px 20px 40px;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 8vw, 4.2rem);
+      font-weight: 700;
+      background: linear-gradient(120deg, #ffffff, #c0d0ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.1;
+    }
+    .hero .tagline {
+      font-size: 1.3rem;
+      color: #b1c3ff;
+      margin: 16px 0 32px;
+    }
+    .search-bar {
+      display: flex;
+      max-width: 650px;
+      margin: 0 auto 20px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 80px;
+      padding: 5px;
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(8px);
+    }
+    .search-bar input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 18px 28px;
+      font-size: 1rem;
+      color: inherit;
+      outline: none;
+    }
+    .search-bar button {
+      background: linear-gradient(145deg, #3b5eff, #9d4eff);
+      border: none;
+      border-radius: 60px;
+      padding: 0 32px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .hero .cta-row {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* section titles */
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin: 50px 0 20px;
+      background: linear-gradient(130deg, #d6e0ff, #c7aaff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+
+    /* category chips */
+    .category-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin: 30px 0 20px;
+    }
+    .chip {
+      background: rgba(80, 100, 255, 0.15);
+      border: 1px solid rgba(130, 160, 255, 0.3);
+      border-radius: 40px;
+      padding: 10px 24px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .chip.active, .chip:hover {
+      background: #4a6cff;
+      border-color: #a78aff;
+      color: white;
+    }
+
+    /* tool cards grid */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 28px;
+      margin: 30px 0;
+    }
+    .tool-card {
+      background: rgba(25, 30, 45, 0.7);
+      backdrop-filter: blur(8px);
+      border-radius: 28px;
+      padding: 24px 20px;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .tool-card:hover {
+      transform: translateY(-6px);
+      border-color: #6d8aff;
+    }
+    .tool-logo {
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      background: linear-gradient(145deg, #323b66, #1c2340);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+    }
+    .tool-card h3 {
+      font-size: 1.3rem;
+    }
+    .tool-desc {
+      color: #b5c2e0;
+      font-size: 0.9rem;
+      margin: 8px 0 12px;
+      flex: 1;
+    }
+    .tool-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+    }
+    .category-tag {
+      background: rgba(180, 150, 255, 0.2);
+      border-radius: 40px;
+      padding: 4px 14px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #bfcaff;
+    }
+    .rating {
+      color: #ffb83b;
+      letter-spacing: 2px;
+    }
+    .visit-btn, .copy-btn, .save-btn {
+      background: transparent;
+      border: 1px solid #5b75ff;
+      border-radius: 30px;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      color: inherit;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .visit-btn:hover {
+      background: #3b5eff;
+      border-color: #3b5eff;
+    }
+    .save-btn {
+      border-color: #ff6b9d;
+      background: rgba(255, 100, 150, 0.1);
+    }
+    .save-btn:hover {
+      background: #ff4d7a;
+      color: white;
+    }
+
+    /* prompts grid */
+    .prompts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin: 30px 0;
+    }
+    .prompt-card {
+      background: rgba(30, 35, 55, 0.6);
+      backdrop-filter: blur(5px);
+      border-radius: 28px;
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .prompt-text {
+      font-style: italic;
+      margin: 10px 0 16px;
+      color: #cfdcff;
+    }
+    .prompt-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    /* form card */
+    .form-card {
+      padding: 40px;
+      margin: 40px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      max-width: 700px;
+    }
+    .form-card input, .form-card select, .form-card textarea {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid #38447a;
+      border-radius: 40px;
+      padding: 15px 25px;
+      font-size: 1rem;
+      color: inherit;
+      outline: none;
+    }
+    .form-card textarea {
+      border-radius: 30px;
+    }
+
+    /* blog grid */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+    }
+    .blog-card {
+      background: rgba(25, 30, 45, 0.6);
+      backdrop-filter: blur(4px);
+      border-radius: 30px;
+      padding: 20px;
+    }
+    .blog-img {
+      width: 100%;
+      height: 140px;
+      background: linear-gradient(130deg, #3a4770, #1e2642);
+      border-radius: 20px;
+      margin-bottom: 15px;
+    }
+
+    /* newsletter */
+    .newsletter {
+      text-align: center;
+      padding: 50px 20px;
+      border-radius: 60px;
+      background: rgba(30, 40, 70, 0.3);
+      backdrop-filter: blur(8px);
+      margin: 60px 0;
+    }
+    .newsletter .search-bar {
+      max-width: 500px;
+      margin: 20px auto;
+    }
+
+    /* footer */
+    .footer {
+      padding: 40px 30px;
+      margin: 40px 0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .socials i {
+      font-size: 1.5rem;
+      margin: 0 10px;
+      opacity: 0.7;
+    }
+
+    /* admin panel concept (hidden by default) */
+    .admin-panel {
+      background: rgba(20, 15, 40, 0.9);
+      backdrop-filter: blur(10px);
+      border-radius: 30px;
+      padding: 25px;
+      margin: 20px 0;
+      border: 1px solid #6940ff;
+      display: none;
+    }
+    .admin-panel.show {
+      display: block;
+    }
+
+    /* responsive */
+    @media (max-width: 700px) {
+      nav { flex-direction: column; align-items: stretch; }
+      .nav-links { justify-content: center; }
+    }
+
+    /* favorites heart toggle */
+    .far.fa-heart, .fas.fa-heart { cursor: pointer; }
+    .fas.fa-heart { color: #ff4d7a; }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- NAVIGATION -->
+    <nav>
+      <div class="logo"><i class="fas fa-robot" style="margin-right: 10px;"></i>AI Horizons</div>
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">AI Tools</a>
+        <a href="#">Prompts</a>
+        <a href="#">Categories</a>
+        <a href="#">Blog</a>
+        <a href="#">Submit Tool</a>
+        <a href="#">Login</a>
+        <a href="#" class="gradient-btn-outline">Signup</a>
+      </div>
+      <div class="nav-icons">
+        <i class="fas fa-shield-alt" id="adminToggle" title="Admin panel concept"></i>
+        <div class="theme-toggle" id="themeToggle">
+          <i class="fas fa-moon active"></i>
+          <i class="fas fa-sun"></i>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ADMIN PANEL CONCEPT (hidden initially) -->
+    <div class="admin-panel" id="adminPanel">
+      <h3><i class="fas fa-crown"></i> Admin overview</h3>
+      <div style="display: flex; gap: 30px; flex-wrap: wrap; margin-top: 15px;">
+        <div><strong>234</strong> total tools</div>
+        <div><strong>18</strong> pending</div>
+        <div><strong>1.2k</strong> users</div>
+        <div><strong>42</strong> reports</div>
+      </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <h1>Discover the future of AI</h1>
+      <div class="tagline">ProductHunt style directory for artificial intelligence tools & prompts</div>
+      <div class="search-bar" id="globalSearch">
+        <input type="text" placeholder="Search AI tools..." id="searchInput">
+        <button><i class="fas fa-search"></i> Search</button>
+      </div>
+      <div class="cta-row">
+        <button class="gradient-btn"><i class="fas fa-bolt"></i> Explore trending</button>
+        <button class="gradient-btn-outline"><i class="fas fa-plus-circle"></i> Submit tool</button>
+      </div>
+    </section>
+
+    <!-- CATEGORIES chips -->
+    <h2 class="section-title">Categories</h2>
+    <div class="category-chips" id="categoryChips"></div>
+
+    <!-- TRENDING TOOLS grid (dynamic) -->
+    <h2 class="section-title">🔥 Trending AI Tools</h2>
+    <div class="tools-grid" id="toolsGrid"></div>
+
+    <!-- FEATURED PROMPTS -->
+    <h2 class="section-title"><i class="fas fa-message"></i> Featured prompts</h2>
+    <div class="prompts-grid" id="promptsGrid"></div>
+
+    <!-- SUBMIT TOOL SECTION -->
+    <h2 class="section-title">➕ Submit new tool</h2>
+    <div class="form-card">
+      <input type="text" placeholder="Tool name" id="toolName">
+      <textarea rows="2" placeholder="Short description" id="toolDesc"></textarea>
+      <select id="toolCategory">
+        <option>AI Writing</option><option>AI Image</option><option>AI Video</option><option>AI Marketing</option><option>AI Coding</option><option>AI Productivity</option>
+      </select>
+      <input type="url" placeholder="Website link" id="toolUrl">
+      <button class="gradient-btn" style="width: fit-content;" onclick="alert('Demo: tool submitted (simulated)')">Submit tool</button>
+    </div>
+
+    <!-- BLOG SECTION -->
+    <h2 class="section-title">📰 Latest AI news & tutorials</h2>
+    <div class="blog-grid" id="blogGrid"></div>
+
+    <!-- NEWSLETTER -->
+    <div class="newsletter">
+      <h3>Stay ahead with AI insights</h3>
+      <div class="search-bar" style="max-width: 450px;">
+        <input type="email" placeholder="Your email">
+        <button>Subscribe</button>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div>© 2025 AI Horizons — discover tools</div>
+      <div class="socials">
+        <i class="fab fa-twitter"></i>
+        <i class="fab fa-github"></i>
+        <i class="fab fa-linkedin"></i>
+        <i class="fab fa-discord"></i>
+      </div>
+      <div><a href="#" style="color:inherit; margin-right:15px;">Privacy</a><a href="#" style="color:inherit;">Terms</a></div>
+    </footer>
+  </div>
+
+  <script>
+    (function() {
+      // ---------- DUMMY DATA ----------
+      const toolsData = [
+        { id:1, name:'CopyPen', desc:'AI writing assistant for blogs & ads', logo:'fa-solid fa-pen-nib', category:'AI Writing', rating:4.8, url:'#' },
+        { id:2, name:'ImagenAI', desc:'Generate stunning images from text', logo:'fa-solid fa-image', category:'AI Image', rating:4.9, url:'#' },
+        { id:3, name:'VideoForge', desc:'Turn scripts into videos instantly', logo:'fa-solid fa-video', category:'AI Video', rating:4.7, url:'#' },
+        { id:4, name:'MarketMuse', desc:'AI marketing content optimizer', logo:'fa-solid fa-chart-line', category:'AI Marketing', rating:4.5, url:'#' },
+        { id:5, name:'CodeWizard', desc:'Explain, generate, refactor code', logo:'fa-solid fa-code', category:'AI Coding', rating:4.9, url:'#' },
+        { id:6, name:'ProductlyAI', desc:'Productivity & meeting assistant', logo:'fa-solid fa-rocket', category:'AI Productivity', rating:4.6, url:'#' }
+      ];
+
+      const promptsData = [
+        { id:1, text:'Write a persuasive email for a SaaS product', saveCount:120 },
+        { id:2, text:'Midjourney prompt: cyberpunk cityscape neon', saveCount:89 },
+        { id:3, text:'Generate python script to scrape tweets', saveCount:230 }
+      ];
+
+      const blogPosts = [
+        { title:'Claude 3.5 vs GPT-4o', summary:'Benchmarks and real-world tests', img:'📊' },
+        { title:'Top 10 AI image tools', summary:'From DALL·E to Ideogram', img:'🖼️' },
+        { title:'Building with prompts', summary:'Advanced prompt engineering', img:'⚙️' }
+      ];
+
+      // categories list
+      const categoriesList = ['AI Writing','AI Image','AI Video','AI Marketing','AI Coding','AI Productivity','All'];
+
+      // ---------- STATE ----------
+      let selectedCategory = 'All';
+      let searchTerm = '';
+
+      // ---------- RENDER TOOLS (filtered) ----------
+      function renderTools() {
+        const container = document.getElementById('toolsGrid');
+        if (!container) return;
+        const filtered = toolsData.filter(t => {
+          const matchesCat = selectedCategory === 'All' || t.category === selectedCategory;
+          const matchesSearch = t.name.toLowerCase().includes(searchTerm) || t.desc.toLowerCase().includes(searchTerm);
+          return matchesCat && matchesSearch;
+        });
+
+        container.innerHTML = filtered.map(t => `
+          <div class="tool-card" data-id="${t.id}">
+            <div class="tool-logo"><i class="${t.logo}"></i></div>
+            <h3>${t.name}</h3>
+            <div class="tool-desc">${t.desc}</div>
+            <div class="tool-meta">
+              <span class="category-tag">${t.category}</span>
+              <span class="rating"><i class="fas fa-star"></i> ${t.rating}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+              <button class="visit-btn" onclick="window.open('#','_blank')"><i class="fas fa-arrow-up-right-from-square"></i> Visit</button>
+              <i class="far fa-heart save-btn" style="font-size:1.2rem; padding:8px;" onclick="this.classList.toggle('far'); this.classList.toggle('fas');"></i>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // render categories chips
+      function renderCategories() {
+        const chipDiv = document.getElementById('categoryChips');
+        chipDiv.innerHTML = categoriesList.map(cat => 
+          `<span class="chip ${selectedCategory === cat ? 'active' : ''}" data-cat="${cat}">${cat}</span>`
+        ).join('');
+
+        document.querySelectorAll('.chip').forEach(chip => {
+          chip.addEventListener('click', (e) => {
+            selectedCategory = e.target.dataset.cat;
+            renderCategories();   // re-render chips with active
+            renderTools();
+          });
+        });
+      }
+
+      // render prompts grid
+      function renderPrompts() {
+        const container = document.getElementById('promptsGrid');
+        container.innerHTML = promptsData.map(p => `
+          <div class="prompt-card">
+            <i class="fas fa-quote-left" style="opacity:0.5"></i>
+            <div class="prompt-text">"${p.text}"</div>
+            <div class="prompt-actions">
+              <button class="copy-btn" data-prompt="${p.text}"><i class="far fa-copy"></i> Copy</button>
+              <button class="save-btn"><i class="far fa-bookmark"></i> Save</button>
+            </div>
+          </div>
+        `).join('');
+
+        // copy functionality
+        document.querySelectorAll('.copy-btn').forEach(btn =
