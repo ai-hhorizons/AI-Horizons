@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ai-hhorizons.github.io/AI-Horizons/sitemap.xml

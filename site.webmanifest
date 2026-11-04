@@ -1,0 +1,13 @@
+{
+  "name": "AI Horizons – Best AI Tools Directory",
+  "short_name": "AI Horizons",
+  "description": "Discover the best AI tools and ChatGPT prompts.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0B0C15",
+  "theme_color": "#0B0C15",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
